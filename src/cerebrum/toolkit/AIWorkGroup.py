@@ -13,7 +13,7 @@ from cerebrum.staff.ChiefAnalyst import ChiefAnalyst
 class AIWorkGroup:
     """A group of AI agents working together to handle financial analysis tasks."""
     
-    def __init__(self, interactive_mode=False):
+    def __init__(self, interactive_mode):
         """
         Initialize the AI work group.
         
@@ -24,6 +24,7 @@ class AIWorkGroup:
         self.clients = []  # List to store all AI client threads
         
         # Initialize core components
+        self.interactive_mode = interactive_mode
         self._init_clients()
         self.broker.subscribe(Topics.SYSTEM_SHUTDOWN, self.handle_shutdown)
         self.running = True  # System running status flag
@@ -31,9 +32,9 @@ class AIWorkGroup:
     def _init_clients(self):
         """Initialize all AI role clients."""
         roles = [
-            UserProxy(self.broker, interactive_mode=True),  # User interface agent
+            UserProxy(self.broker, self.interactive_mode),  # User interface agent
             ChiefAnalyst(self.broker),  # Chief analysis agent
-            MarketAnalyst(self.broker, interactive_mode=True),  # Market analysis agent
+            MarketAnalyst(self.broker, self.interactive_mode),  # Market analysis agent
             # Can add BacktestAnalyst and SentimentAnalyst here
         ]
         
@@ -68,6 +69,7 @@ class AIWorkGroup:
             print(f"Thread: {thread.name}, daemon: {thread.daemon}")
 
 
+'''
 # Example usage
 user_input = input('Please input ticker:')
 
@@ -88,3 +90,5 @@ system.broker.publish(Topics.USER_INPUT, {
 # Main loop
 while system.running:
     time.sleep(0.1)
+
+'''

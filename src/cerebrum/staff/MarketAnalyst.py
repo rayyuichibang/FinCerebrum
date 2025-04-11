@@ -10,7 +10,7 @@ from cerebrum.config.Prompt import Prompt
 class MarketAnalyst(AIClient):
     """AI agent specialized in market technical analysis."""
     
-    def __init__(self, broker: MessageBroker, interactive_mode: bool = False):
+    def __init__(self, broker: MessageBroker, interactive_mode):
         """
         Initialize the Market Analyst.
         
@@ -43,7 +43,6 @@ class MarketAnalyst(AIClient):
         """Handle market analysis tasks."""
         print(f"\033[38;5;208m 高級市場分析師：開始分析工作\033[0m")
         
-        #print(message)
         
         task_id = message["task_id"]
         ticker = message["data"]['ticker']
@@ -99,7 +98,7 @@ class MarketAnalyst(AIClient):
             else:
                 # Non-interactive mode: send directly to chief analyst
                 print(f"\033[38;5;208m高級市場分析師：\033[0m")
-                print(f"\033[38;5;208m{analysis}\033[0m")
+                print(f"{analysis}")
                 #print(analysis)
                 print(f"\033[38;5;208m高級市場分析師：完成工作了，現在向首席分析師提交分析報告進行審核。\033[0m")
                 #print('completed analyze, now passing to chief analyzer to review')
@@ -149,9 +148,7 @@ class MarketAnalyst(AIClient):
             #print(chatHistory)
             
             analysis = self.call_ai(chatHistory)
-            print(f"\033[38;5;208m高級市場分析師：用戶提交了反饋「{feedback}」，我將根據要求進行修正分析。\033[0m")
-            #print('Market analyst is analzing again according to user feedback:')
-            #print(analysis)
+            print(f"高級市場分析師：用戶提交了反饋「{feedback}」，我將根據要求進行修正分析。")
             
             self.max_retries = self.max_retries - 1
             

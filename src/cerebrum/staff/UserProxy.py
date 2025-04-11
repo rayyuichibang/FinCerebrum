@@ -11,7 +11,7 @@ class UserProxy(AIClient):
     Handles task delegation and feedback collection.
     """
     
-    def __init__(self, broker: MessageBroker, interactive_mode: bool = False):
+    def __init__(self, broker: MessageBroker, interactive_mode):
         """
         Initialize the UserProxy agent.
         
@@ -87,7 +87,7 @@ class UserProxy(AIClient):
         """
         task_id = message["task_id"]
         print(f"\033[92m用戶助理:最終的分析報告結果\033[0m") 
-        print(f"\033[92m{message['report']}\033[0m") 
+        print(f"{message['report']}") 
         #print(message['report'])
         
         # Shutdown system after final report
@@ -107,13 +107,10 @@ class UserProxy(AIClient):
         Args:
             message: Contains report content needing feedback
         """
-        #print(f"\033[92m用戶助理:用戶你好，請審閱{message['role']}的分析結果。如果你有什麼反饋，請告知。如果沒有，請輸入回車或'no'\033[0m") 
-        #print('Following is the report from:', message['role'], 
-        #      '.Please review and input your comments, if you do not have further comment, enter space or no')
+
         print(f"分析結果：{message['content']}") 
-        #print('Analysis:', message['content'])
-        
-        feedback = input(f"\033[92m用戶助理:用戶你好，請審閱{message['role']}的分析結果。如果你有什麼反饋，請告知。如果沒有，請輸入回車或'no'\033[0m")
+
+        feedback = input(f"\033[92m用戶助理:用戶你好，請審閱{message['role']}的分析結果。如果你有什麼反饋，請告知。如果沒有，請輸入回車或'no'：\033[0m")
         currentAnalysis = message['content']
         
         #return the feedback to market analyzer
