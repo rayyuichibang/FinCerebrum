@@ -15,7 +15,7 @@ class Config:
             ],
             'AI':{
                 'baseURL':'https://openrouter.ai/api/v1',
-                'apiKey':'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',
+                'apiKey':'',
                 'model':{
                     'user_proxy':'meta-llama/llama-4-maverick:free',
                     'market_analyst':'meta-llama/llama-4-maverick:free',
